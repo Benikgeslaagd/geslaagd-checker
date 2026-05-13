@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Geslaagd Checker</title>
+    <meta name="description" content="Controleer met SE- en CE-cijfers of je volgens de havo/vwo-regels bent geslaagd." />
+    <meta name="theme-color" content="#0f766e" />
+    <meta property="og:title" content="Geslaagd Checker" />
+    <meta property="og:description" content="Vul je cijfers in en zie direct of je geslaagd bent." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Havo / vwo</p>
+          <h1 id="page-title">Ben ik geslaagd?</h1>
+          <p class="lede">SE, CE, eindcijfers, compensatie en uitslag in een overzicht.</p>
+        </div>
+        <div class="status-card" id="result-card" aria-live="polite">
+          <span class="status-label" id="status-label">Nog niet compleet</span>
+          <strong id="status-title">Vul je cijfers in</strong>
+          <p id="status-copy">De uitslag verschijnt zodra alle cijfers compleet zijn.</p>
+        </div>
+      </section>
+
+      <section class="profile-panel" aria-label="Profiel kiezen">
+        <div class="profile-head">
+          <div>
+            <h2>Opleiding, profiel en keuzevak</h2>
+            <p>Kies havo, atheneum of gymnasium, daarna het profiel en de keuzes van de leerling.</p>
+          </div>
+          <div class="select-row">
+            <label class="select-field">
+              <span>Opleiding</span>
+              <select id="school-select"></select>
+            </label>
+            <label class="select-field">
+              <span>Profiel</span>
+              <select id="profile-select"></select>
+            </label>
+          </div>
+        </div>
+        <div class="option-grid" id="profile-options"></div>
+        <div class="subject-preview" id="subject-preview" aria-label="Relevante vakken"></div>
+      </section>
+
+      <section class="workspace" aria-label="Cijfer checker">
+        <aside class="summary-panel">
+          <div class="metric">
+            <span>Gemiddelde CE</span>
+            <strong id="ce-average">-</strong>
+          </div>
+          <div class="metric">
+            <span>Gemiddelde eindcijfers</span>
+            <strong id="final-average">-</strong>
+          </div>
+          <div class="metric">
+            <span>Compensatiepunten</span>
+            <strong id="comp-points">0</strong>
+          </div>
+          <div class="metric">
+            <span>Onvoldoendes</span>
+            <strong id="fail-count">0</strong>
+          </div>
+
+          <div class="rules" aria-label="Regels">
+            <h2>Controles</h2>
+            <ul id="rule-list"></ul>
+          </div>
+        </aside>
+
+        <section class="grades-panel" aria-label="Cijfers invullen">
+          <div class="panel-head">
+            <div>
+              <h2>Relevante vakken</h2>
+              <p>Vakken zonder CE worden berekend met alleen het SE-cijfer.</p>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Vak</th>
+                  <th>Deel</th>
+                  <th>SE</th>
+                  <th>CE</th>
+                  <th>Kernvak</th>
+                  <th>Eind</th>
+                </tr>
+              </thead>
+              <tbody id="subjects-body"></tbody>
+            </table>
+          </div>
+
+          <div class="actions">
+            <button class="button primary" type="button" id="check-result">Ben ik geslaagd?</button>
+            <button class="button ghost" type="button" id="reset">Leegmaken</button>
+          </div>
+
+          <div class="inline-result" id="inline-result" aria-live="polite">
+            <span class="status-label" id="inline-status-label">Nog niet compleet</span>
+            <strong id="inline-status-title">Vul je cijfers in</strong>
+            <p id="inline-status-copy">De uitslag verschijnt hier zodra je op de knop drukt.</p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <template id="subject-row-template">
+      <tr>
+        <td>
+          <span class="mobile-label">Vak</span>
+          <span class="subject-name"></span>
+        </td>
+        <td>
+          <span class="mobile-label">Deel</span>
+          <span class="subject-kind"></span>
+        </td>
+        <td>
+          <span class="mobile-label">SE</span>
+          <input class="grade-input se-grade" type="text" inputmode="decimal" aria-label="SE cijfer" placeholder="5,8" />
+          <select class="ovg-grade" aria-label="O V G beoordeling">
+            <option value="">Kies</option>
+            <option value="O">O</option>
+            <option value="V">V</option>
+            <option value="G">G</option>
+          </select>
+        </td>
+        <td>
+          <span class="mobile-label">CE</span>
+          <input class="grade-input ce-grade" type="text" inputmode="decimal" aria-label="CE cijfer" placeholder="6,1" />
+          <span class="no-ce">Geen CE</span>
+        </td>
+        <td>
+          <span class="mobile-label">Kernvak</span>
+          <span class="core-badge"></span>
+        </td>
+        <td>
+          <span class="mobile-label">Eind</span>
+          <output class="final-grade">-</output>
+        </td>
+      </tr>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>

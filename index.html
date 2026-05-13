@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Geslaagd Checker</title>
+    <meta name="description" content="Controleer met SE- en CE-cijfers of je volgens de havo/vwo-regels bent geslaagd." />
+    <meta name="theme-color" content="#0f766e" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Havo / vwo</p>
+          <h1>Ben ik geslaagd?</h1>
+          <p>Vul je profiel, keuzevak, SE-cijfers en CE-cijfers in.</p>
+        </div>
+        <div class="result-card" id="top-result" aria-live="polite">
+          <span id="top-label">Nog niet compleet</span>
+          <strong id="top-title">Vul je cijfers in</strong>
+          <p id="top-copy">De uitslag verschijnt zodra alle cijfers compleet zijn.</p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Opleiding, profiel en keuzevak</h2>
+            <p>Kies wat voor jou geldt. Daarna verschijnen alleen de relevante vakken.</p>
+          </div>
+          <div class="selects">
+            <label>Opleiding<select id="school"></select></label>
+            <label>Profiel<select id="profile"></select></label>
+          </div>
+        </div>
+        <div class="choices" id="choices"></div>
+        <div class="chips" id="chips"></div>
+      </section>
+
+      <section class="layout">
+        <aside class="summary panel">
+          <div class="metric"><span>Gemiddelde CE</span><strong id="ce-avg">-</strong></div>
+          <div class="metric"><span>Gemiddelde eindcijfers</span><strong id="final-avg">-</strong></div>
+          <div class="metric"><span>Compensatiepunten</span><strong id="comp">0</strong></div>
+          <div class="metric"><span>Onvoldoendes</span><strong id="fails">0</strong></div>
+          <h2>Controles</h2>
+          <ul class="rules" id="rules"></ul>
+        </aside>
+
+        <section class="grades panel">
+          <div class="panel-head">
+            <div>
+              <h2>Relevante vakken</h2>
+              <p>Combinatiecijfer telt mee voor compensatie en mag niet lager zijn dan 4.</p>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Vak</th>
+                  <th>Deel</th>
+                  <th>SE</th>
+                  <th>CE</th>
+                  <th>Kernvak</th>
+                  <th>Eind</th>
+                </tr>
+              </thead>
+              <tbody id="rows"></tbody>
+            </table>
+          </div>
+          <div class="actions">
+            <button id="check" class="primary" type="button">Ben ik geslaagd?</button>
+            <button id="reset" class="ghost" type="button">Leegmaken</button>
+          </div>
+          <div class="inline-result" id="inline-result" aria-live="polite">
+            <span id="inline-label">Nog niet compleet</span>
+            <strong id="inline-title">Vul je cijfers in</strong>
+            <p id="inline-copy">De uitslag verschijnt hier zodra je op de knop drukt.</p>
+            <div id="details" class="details"></div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <template id="row-template">
+      <tr>
+        <td><span class="mobile-label">Vak</span><span class="subject"></span></td>
+        <td><span class="mobile-label">Deel</span><span class="kind"></span></td>
+        <td>
+          <span class="mobile-label">SE</span>
+          <input class="se" type="text" inputmode="decimal" placeholder="5,8" />
+          <select class="ovg">
+            <option value="">Kies</option>
+            <option value="O">O</option>
+            <option value="V">V</option>
+            <option value="G">G</option>
+          </select>
+        </td>
+        <td><span class="mobile-label">CE</span><input class="ce" type="text" inputmode="decimal" placeholder="6,1" /><span class="no-ce">Geen CE</span></td>
+        <td><span class="mobile-label">Kernvak</span><span class="core"></span></td>
+        <td><span class="mobile-label">Eind</span><output class="final">-</output></td>
+      </tr>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
